@@ -84,7 +84,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
   const approvedTickets = registrations.filter((r) => r.status === 'Approved').length;
   const pendingIdReviews = registrations.filter((r) => r.status === 'Pending_ID_Approval').length;
   const pendingPayments = registrations.filter((r) => r.status === 'Pending_Payment_Verification').length;
-  const totalRevenue = approvedTickets * settings.generalPassPrice;
+  const totalRevenue = totalClaimedPasses * settings.generalPassPrice;
+
 
 
   // Filtered registrations
@@ -295,8 +296,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
                 <p className="text-xl font-mono font-bold text-[#881337]">
                   ₹{(totalRevenue).toLocaleString('en-IN')}
                 </p>
-                <span className="text-[10px] text-stone-400">General Passes</span>
+                <span className="text-[10px] text-stone-500 font-mono font-semibold">
+                  {totalClaimedPasses} Passes × ₹{settings.generalPassPrice}
+                </span>
               </div>
+
 
               <div className="bg-white p-3.5 rounded-2xl border border-stone-200 shadow-xs">
                 <span className="text-[10px] font-mono uppercase text-stone-500 font-bold block">Driver Passes</span>

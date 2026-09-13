@@ -56,7 +56,7 @@ const TicketContext = createContext<TicketContextType | undefined>(undefined);
 const REGISTRATIONS_KEY = 'kruponam_registrations_v2026';
 const DRIVERS_KEY = 'kruponam_drivers_v2026';
 const SETTINGS_KEY = 'kruponam_settings_v2026';
-const OFFSET_KEY = 'kruponam_offset_v2026';
+const OFFSET_KEY = 'kruponam_offset_v750_capacity';
 
 export const TicketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [registrations, setRegistrations] = useState<Registration[]>(() => {
@@ -86,15 +86,16 @@ export const TicketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   });
 
-  // Base pre-booked passes offset to reflect realistic college batch bookings
+  // Base pre-booked passes offset: 744 + 6 active registrations = exactly 750 / 750 filled
   const [baseBookedOffset, setBaseBookedOffset] = useState<number>(() => {
     try {
       const saved = localStorage.getItem(OFFSET_KEY);
-      return saved ? Number(saved) : 518;
+      return saved !== null ? Number(saved) : (750 - initialRegistrations.filter((r) => r.status !== 'Rejected').length);
     } catch {
-      return 518;
+      return 750 - initialRegistrations.filter((r) => r.status !== 'Rejected').length;
     }
   });
+
 
   useEffect(() => {
     try {
@@ -419,8 +420,9 @@ export const TicketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setRegistrations(initialRegistrations);
     setDrivers(initialDrivers);
     setSettings(initialSiteSettings);
-    setBaseBookedOffset(518);
+    setBaseBookedOffset(initialSiteSettings.totalCapacity - initialRegistrations.filter((r) => r.status !== 'Rejected').length);
   };
+
 
   const exportToCsv = () => {
     const headers = [
