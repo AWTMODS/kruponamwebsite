@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-royal: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-kasavu-50: #FFFDF7;
+  --color-kasavu-100: #FAF5EB;
+  --color-kasavu-200: #F3EAD8;
+  --color-kasavu-300: #E8D8BE;
+  --color-kasavu-400: #D7BF9B;
+
+  --color-temple-green-950: #051A10;
+  --color-temple-green-900: #0D472B;
+  --color-temple-green-800: #145E3A;
+  --color-temple-green-700: #1B784C;
+  --color-emerald-500: #10B981;
+
+  --color-gold-200: #FEF08A;
+  --color-gold-300: #FDE68A;
+  --color-gold-400: #F59E0B;
+  --color-gold-500: #D4AF37;
+  --color-gold-600: #B8860B;
+  --color-gold-700: #8C6B08;
+
+  --color-kerala-maroon: #881337;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: #FAF5EB;
+    color: #1A2E20;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Kasavu & Gold Borders */
+.kasavu-gold-border {
+  border: 1px solid #D4AF37;
+  box-shadow: 0 0 0 1px #FAF5EB, 0 0 0 2px #B8860B;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #FDE68A 0%, #D4AF37 50%, #B8860B 100%);
+}
+
+.temple-gradient-bg {
+  background: linear-gradient(135deg, #072617 0%, #0D472B 50%, #145E3A 100%);
+}
+
+.kasavu-pattern {
+  background-color: #FAF5EB;
+  background-image: radial-gradient(#D4AF37 0.75px, transparent 0.75px), radial-gradient(#0D472B 0.75px, #FAF5EB 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+/* Traditional Pookalam Floral Backdrop Overlay */
+.pookalam-watermark {
+  background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, rgba(13, 71, 43, 0.03) 50%, transparent 70%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF5EB;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8860B;
+}
+
+/* Print Specific Isolation for Physical Tickets */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-pass-container,
+  #printable-pass-container * {
+    visibility: visible;
+  }
+  #printable-pass-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
